@@ -24,6 +24,7 @@ app.configure('production',  require('../config/server').production.bind(null, a
 app.use(require('../../lib/renderRouteComponent'));
 
 // Start server
+//TODO: Update to express 4
 var server = app.listen(80, function() {
   console.log('Listening on port ' + server.address().port);
 });
