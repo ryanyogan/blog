@@ -7,6 +7,7 @@
     "build-js": "browserify ./app/client/index.js -t reactify | uglifyjs -mc unsafe=true > ./public/js/bundle.js",
     "watch-js": "watchify ./app/client/index.js -t reactify -o ./public/js/bundle.js -dv",
     "build-css": "uglifycss ./public/css/*.css > ./public/css/bundle.css",
+    "test": "./node_modules/.bin/mocha ./test/test.js",
     "predeploy": "npm run build-js && npm run build-css",
     "clean": "rm ./public/js/bundle.js"
   },
