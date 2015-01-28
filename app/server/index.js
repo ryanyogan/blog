@@ -2,31 +2,30 @@
 
 var express = require('express');
 var nodejsx = require('node-jsx').install();
-var http    = require('http');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var routes  = require('./api');
+var url     = require('url');
 var app     = express();
+var logger  = require('morgan');
+var path         = require('path');
+var reactAsync   = require('react-async');
 
 // Global config
-app.configure(function() {
-  app.use('port', process.env.PORT || 8080);
-  app.use(express.json());
-  app.use(express.urlencoded());
-  app.use(express.methodOverride());
-});
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Import API
-require('./api')(app);
+app.use('/api', routes);
 
-// Inject env config
-app.configure('development', require('../config/server').development.bind(null, app, express));
-app.configure('production',  require('../config/server').production.bind(null, app, express));
-
-// Injrect component rendering
-app.use(require('../../lib/renderRouteComponent'));
-
-// Start server
-//TODO: Update to express 4
-var server = app.listen(80, function() {
-  console.log('Listening on port ' + server.address().port);
+app.get("*", function(req, res) {
+  var path = url.parse(req.url).pathname;
+  ReactAsync.renderComponentToStringWithAsyncState(ReactApp({path: path}), function(err, markup, data) {
+    res.send(ReactAsync.injectIntoMarkup(markup, data, ['/js/bundle.js']));
+  });
 });
 
 module.exports = app;
