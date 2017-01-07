@@ -20,7 +20,8 @@
     "normalize.css": "^5.0.0",
     "prismjs": "^1.6.0",
     "timeago.js": "^2.0.4",
-    "vue": "^2.1.0"
+    "vue": "^2.1.0",
+    "vue-router": "^2.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
