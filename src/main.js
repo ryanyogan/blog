@@ -3,6 +3,9 @@
 import Vue from 'vue';
 import router from './router';
 import App from './App';
+import filter from './utils/filter';
+
+filter(Vue);
 
 Vue.config.devtools = process.env.NODE_ENV !== 'production';
 

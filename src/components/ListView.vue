@@ -2,15 +2,15 @@
   <section class="list-view">
     <div v-if="!lists">loading...</div>
     <ol v-if="lists" class="list">
-      <li v-for="{ title, sha, data } in filteredList" :key="sha" class="list-item">
-        <router-link to="`${/post/${sha}}`" class="item-title">
+      <li v-for="{ title, sha, date } in filteredList" :key="sha" class="list-item">
+        <router-link :to="`/post/${sha}`" class="item-title">
           {{ title }}
         </router-link>
-        <br />
+        <br>
         <time
           pubdate="pubdate"
           :datetime="date | formatDate"
-          :title="date | formateDate"
+          :title="date | formatDate"
           class="item-date"
         >
           {{ date | timeago }}
@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       lists: null,
+      date: null,
     };
   },
 
