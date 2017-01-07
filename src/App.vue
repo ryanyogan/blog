@@ -1,28 +1,51 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <header class="header">
+      <router-link to="/">{{title}}</router-link>
+      <div style="clear: both;"></div>
+      <input class="search-bar" placeholder="Search..."
+        ref="searchBar" v-model="keyword"
+        @click="selectSearchText"
+        @keyup.esc="resetSearch"
+      />
+    </header>
+    <router-view></router-view>
+    <footer class="footer">
+      Powered by Vue.js
+    </footer>
   </div>
 </template>
 
+<style lang="stylus" src="./styles/index.styl"></style>
+
 <script>
-import Hello from './components/Hello';
+import conf from './conf.json';
 
 export default {
   name: 'app',
-  components: {
-    Hello,
+  data() {
+    return {
+      title: conf.blogTitle,
+      keyword: '',
+    };
+  },
+  methods: {
+    resetSearch() {
+      this.keyword = '';
+      this.$refs.searchBar.blur();
+    },
+    selectSearchText() {
+      this.$refs.searchBar.select();
+    },
+  },
+  watch: {
+    keyword() {
+      if (this.keyword) {
+        this.$router.push({ name: 'list', query: { keyword: this.keyword } });
+      } else {
+        this.$router.push({ name: 'list' });
+      }
+    },
   },
 };
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

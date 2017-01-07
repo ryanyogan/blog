@@ -13,6 +13,13 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "axios": "^0.15.3",
+    "es6-promise": "^4.0.5",
+    "front-matter": "^2.1.1",
+    "marked": "^0.3.6",
+    "normalize.css": "^5.0.0",
+    "prismjs": "^1.6.0",
+    "timeago.js": "^2.0.4",
     "vue": "^2.1.0"
   },
   "devDependencies": {
