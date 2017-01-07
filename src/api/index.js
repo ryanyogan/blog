@@ -5,7 +5,7 @@ import 'es6-promise/auto';
 import conf from '../conf.json';
 import { onlyTitle, onlyDate } from '../utils';
 
-const API = 'https://api.githu.com';
+const API = 'https://api.github.com';
 
 /**
  * Format Github Api url for content list
@@ -46,7 +46,8 @@ const getSession = key => (
 
 const sessionLookup = key => (
   window.sessionStorage &&
-    window.sessionStorage.hashOwnProperty(key.toString())
+    // eslint-disable-next-line
+    window.sessionStorage.hasOwnProperty(key.toString())
 );
 
 export default {
